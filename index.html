@@ -1,269 +1,133 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PartyDrop – Battel Royal Party</title>
-  <meta name="description" content="Eventi sociali e mini tornei su Warzone. Squadre random, calendario eventi, ranking e clip meme. Unisciti al Discord!" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0b0e13;
-      --bg-soft: #0f141c;
-      --surface: #121826;
-      --text: #e6e9ef;
-      --muted: #a9b1c3;
-      --primary: #6d8cff;
-      --primary-2: #8a5bff;
-      --accent: #20d6a8;
-      --ring: rgba(109,140,255,.35);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 18px;
-      --gap: 18px;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: radial-gradient(1200px 600px at 10% -10%, rgba(141,91,255,.25), transparent 60%),
-                  radial-gradient(900px 500px at 90% 10%, rgba(109,140,255,.25), transparent 60%),
-                  linear-gradient(180deg, var(--bg), var(--bg-soft));
-    }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1100px, 92%); margin: 0 auto; }
-    header {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(10,12,17,.8), rgba(10,12,17,.35));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav { display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px; }
-    .badge { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); box-shadow: var(--shadow); }
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 18px; border-radius:999px; font-weight:700; letter-spacing:.2px; cursor:pointer;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      box-shadow: 0 8px 24px var(--ring);
-      border: 1px solid rgba(255,255,255,.08);
-      transition: transform .12s ease, box-shadow .12s ease, opacity .2s ease;
-      color: #fff;
-    }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 30px var(--ring); }
-    .btn.secondary { background: rgba(255,255,255,.06); color: var(--text); box-shadow: none; }
-    .btn.secondary:hover { background: rgba(255,255,255,.1); }
-    .hero { padding: 72px 0 36px; position: relative; }
-    .hero-inner { display:grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items:center; }
-    .title { font-size: clamp(36px, 5vw, 56px); line-height: 1.05; margin: 0 0 14px; font-weight: 800; }
-    .subtitle { color: var(--muted); font-size: clamp(16px, 2.2vw, 19px); margin-bottom: 24px; }
-    .btn-row { display:flex; gap:12px; flex-wrap:wrap; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-    .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-    .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-    section { padding: 36px 0; }
-    h2 { font-size: clamp(24px, 3.5vw, 32px); margin: 0 0 16px; }
-    p { line-height: 1.6; }
+/* PartyDrop Design System - Gaming Dark Theme with Glassmorphism */
 
-    .list { display:grid; gap: 12px; }
-    .list .item { display:flex; gap:12px; }
-    .chip { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); font-size: 13px; color: var(--muted); }
+@layer base {
+  :root {
+    /* Core backgrounds - Very dark like original */
+    --background: 220 39% 4%;     /* Much darker #0a0b0f */
+    --background-soft: 220 35% 5%; /* #0c0e14 */
+    --surface: 220 30% 8%;        /* #131620 */
+    
+    /* Text colors */
+    --foreground: 220 15% 95%;    /* Almost white #f1f2f4 */
+    --muted-foreground: 220 10% 70%; /* #aeb1ba */
+    
+    /* Primary gradient colors (blue to purple) - matching exact reference */
+    --primary: 225 100% 70%;      /* #6d8cff */
+    --primary-secondary: 248 90% 70%; /* #8a5bff */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Accent colors */
+    --accent: 167 85% 55%;       /* Slightly adjusted green */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Card and surface colors - darker */
+    --card: 220 30% 8%;          /* Very dark cards */
+    --card-foreground: 220 15% 95%;
+    
+    /* Secondary elements - more transparent */
+    --secondary: 0 0% 100% / 0.04;
+    --secondary-foreground: 220 15% 95%;
+    
+    /* Muted elements */
+    --muted: 0 0% 100% / 0.04;
+    
+    /* Borders and inputs - very subtle */
+    --border: 0 0% 100% / 0.06;
+    --input: 0 0% 100% / 0.06;
+    
+    /* Ring focus */
+    --ring: 225 100% 70% / 0.35;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Popover */
+    --popover: 220 30% 8%;
+    --popover-foreground: 220 15% 95%;
+    
+    /* Radius */
+    --radius: 1.125rem; /* 18px */
+    
+    /* Custom gradients and effects - much more subtle */
+    --gradient-primary: linear-gradient(135deg, hsl(225 100% 75%), hsl(248 85% 70%));
+    --gradient-bg: radial-gradient(1200px 600px at 10% -10%, hsl(248 85% 70%) / 0.08, transparent 70%),
+                   radial-gradient(900px 500px at 90% 10%, hsl(225 100% 75%) / 0.08, transparent 70%),
+                   linear-gradient(180deg, hsl(var(--background)), hsl(var(--background-soft)));
+    
+    --shadow-elegant: 0 10px 30px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 8px 24px hsl(var(--ring));
+    --shadow-glow-hover: 0 14px 30px hsl(var(--ring));
+    
+    /* Glass effect - more subtle */
+    --glass-bg: hsl(0 0% 100% / 0.04);
+    --glass-border: hsl(0 0% 100% / 0.06);
+    --glass-backdrop: blur(8px);
+    
+    /* Transition */
+    --transition-smooth: all 0.12s ease;
+  }
+}
 
-    .calendar {
-      display:grid; gap: var(--gap);
-    }
-    .event { display:flex; flex-direction:column; gap:6px; padding:16px; border-radius:14px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); }
-    .event .when { font-weight: 800; }
-    .event .what { color: var(--muted); }
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-    .gallery { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-    .thumb { aspect-ratio: 16/9; border-radius: 14px; background: linear-gradient(135deg, rgba(109,140,255,.25), rgba(138,91,255,.25)); border:1px dashed rgba(255,255,255,.12); display:grid; place-items:center; color: var(--muted); font-weight:600; }
+  body {
+    @apply font-inter text-foreground;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+  }
+  
+  /* Focus styles */
+  .focus-ring:focus-visible {
+    @apply outline-2 outline-accent outline-offset-2 rounded-lg;
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+}
 
-    footer { padding: 36px 0 60px; color: var(--muted); }
-    footer .row { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-
-    /* Responsive */
-    @media (max-width: 920px){ .hero-inner { grid-template-columns: 1fr; } }
-    @media (max-width: 720px){ .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } .gallery { grid-template-columns: 1fr; } }
-
-    /* Simple icon style */
-    .icon { width: 22px; height: 22px; display:inline-block; }
-
-    /* Focus outlines */
-    .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 10px; }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <!-- Logo -->
-        <svg class="icon" viewBox="0 0 64 64" role="img" aria-label="PartyDrop logo" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="pdg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#6d8cff"/>
-              <stop offset="1" stop-color="#8a5bff"/>
-            </linearGradient>
-          </defs>
-          <path d="M32 6c-9.5 0-17.2 7.7-17.2 17.2 0 12.4 17.2 26.4 17.2 26.4s17.2-14 17.2-26.4C49.2 13.7 41.5 6 32 6z" fill="url(#pdg)"/>
-          <path d="M20 24c0-6.6 5.4-12 12-12s12 5.4 12 12H20z" fill="#ffffff" fill-opacity=".9"/>
-        </svg>
-        <span>PartyDrop</span>
-        <span class="chip">Beta MVP</span>
-      </div>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <a class="btn secondary" href="#eventi">Calendario</a>
-        <a class="btn secondary" href="#marketplace">Marketplace</a>
-        <a class="btn" id="discordBtnTop" href="https://discord.gg/dvEzHX8nhH" target="_blank" rel="noopener">Discord</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-inner">
-        <div>
-          <h1 class="title">Battel Royal Party</h1>
-          <p class="subtitle">Eventi sociali, tornei rapidi e squadre casuali. Gioca con nuovi amici, scala la classifica e condividi clip meme. 🎮</p>
-          <div class="btn-row">
-            <a class="btn" href="https://discord.gg/dvEzHX8nhH" target="_blank" rel="noopener">Entra ora</a>
-            <a class="btn secondary" href="#come-funziona">Scopri di più</a>
-          </div>
-          <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span class="chip">ID Activision richiesto</span>
-            <span class="chip">Squadre random</span>
-            <span class="chip">Ranking & Clip</span>
-          </div>
-        </div>
-        <div class="card">
-          <div class="badge" style="margin-bottom:12px;">Prossimo evento</div>
-          <div class="event">
-            <div class="when">Giovedì 22 Agosto – Ore 21:00</div>
-            <div class="what">Squad Random Night</div>
-            <a class="btn" style="margin-top:10px; align-self:flex-start;" href="https://discord.gg/dvEzHX8nhH" target="_blank" rel="noopener">Prenota il tuo posto</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COME FUNZIONA -->
-    <section id="come-funziona">
-      <div class="container">
-        <h2>Come funziona</h2>
-        <div class="grid-3">
-          <div class="card">
-            <strong>Iscriviti al Discord</strong>
-            <p class="what">Un clic e sei dentro la community.</p>
-          </div>
-          <div class="card">
-            <strong>Unisciti a un evento</strong>
-            <p class="what">Calendario settimanale con modalità diverse.</p>
-          </div>
-          <div class="card">
-            <strong>Gioca & scala la classifica</strong>
-            <p class="what">Matchmaking random e ranking pubblico.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EVENTI -->
-    <section id="eventi">
-      <div class="container">
-        <h2>Prossimi Eventi</h2>
-        <div class="grid-2">
-          <div class="card calendar">
-            <div class="event">
-              <div class="when">Giovedì 22 Agosto – Ore 21:00</div>
-              <div class="what">Squad Random Night</div>
-              <a class="btn" href="#">Prenota</a>
-            </div>
-            <div class="event">
-              <div class="when">Sabato 24 Agosto – Ore 21:00</div>
-              <div class="what">Modalità Cecchini</div>
-              <a class="btn" href="#">Prenota</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="badge">Embed Calendario</div>
-            <div class="thumb">Calendario</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLASSIFICA & MEME -->
-    <section id="ranking">
-      <div class="container">
-        <h2>Classifica & Meme</h2>
-        <div class="grid-2">
-          <div class="card">
-            <div class="badge">Ranking</div>
-            <div class="thumb">Classifica</div>
-          </div>
-          <div class="card">
-            <div class="badge">Clip divertenti</div>
-            <div class="gallery">
-              <div class="thumb">TikTok #1</div>
-              <div class="thumb">TikTok #2</div>
-              <div class="thumb">TikTok #3</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MARKETPLACE -->
-    <section id="marketplace">
-      <div class="container">
-        <h2>Marketplace</h2>
-        <p class="what">Offri o acquista servizi dalla community: coaching, setup PC, boost audio e altro ancora.</p>
-        <div class="grid-3">
-          <div class="card">
-            <strong>Coaching Warzone</strong>
-            <p class="what">Lezioni private per migliorare il tuo gameplay e strategie da pro.</p>
-            <a class="btn" href="#">Scopri di più</a>
-          </div>
-          <div class="card">
-            <strong>Setup PC da Gaming</strong>
-            <p class="what">Consulenza personalizzata per configurare o ottimizzare il tuo PC.</p>
-            <a class="btn" href="#">Contatta</a>
-          </div>
-          <div class="card">
-            <strong>Boost Audio</strong>
-            <p class="what">Imposta al meglio le tue cuffie e il microfono per un audio cristallino.</p>
-            <a class="btn" href="#">Acquista</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container row">
-      <div>
-        <strong>PartyDrop</strong>
-        <div class="what">Non affiliato con Activision, Call of Duty o Battlefield.</div>
-      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn secondary" href="#">Discord</a>
-        <a class="btn secondary" href="#">Twitch</a>
-        <a class="btn secondary" href="#">TikTok</a>
-        <a class="btn secondary" href="#">Instagram</a>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+@layer components {
+  /* Glass card component - darker */
+  .glass-card {
+    background: hsl(0 0% 100% / 0.04);
+    border: 1px solid hsl(0 0% 100% / 0.08);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px hsl(0 0% 0% / 0.4);
+    backdrop-filter: var(--glass-backdrop);
+  }
+  
+  /* Badge component - darker */
+  .badge-glass {
+    background: hsl(0 0% 100% / 0.06);
+    border: 1px solid hsl(0 0% 100% / 0.1);
+    border-radius: 999px;
+    box-shadow: 0 4px 12px hsl(0 0% 0% / 0.3);
+    backdrop-filter: var(--glass-backdrop);
+  }
+  
+  /* Header blur effect - darker */
+  .header-blur {
+    backdrop-filter: var(--glass-backdrop);
+    background: linear-gradient(180deg, hsl(220 39% 4%) / 0.95, hsl(220 39% 4%) / 0.8);
+    border-bottom: 1px solid hsl(0 0% 100% / 0.08);
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
